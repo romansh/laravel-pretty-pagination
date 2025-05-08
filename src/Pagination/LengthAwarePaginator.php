@@ -5,12 +5,15 @@ namespace CTSoft\Laravel\PrettyPagination\Pagination;
 use Closure;
 use Illuminate\Pagination\LengthAwarePaginator as BaseLengthAwarePaginator;
 
+use CTSoft\Laravel\PrettyPagination\Pagination\Paginator as Paginator;
+
 class LengthAwarePaginator extends BaseLengthAwarePaginator
 {
     use GeneratePrettyUrl;
 
     /**
      * Resolve the current parameters or return the default value.
+     * Delegates to the custom PrettyPaginator's static method.
      *
      * @param array $default
      * @return array
@@ -22,6 +25,7 @@ class LengthAwarePaginator extends BaseLengthAwarePaginator
 
     /**
      * Set the current request parameters resolver callback.
+     * Delegates to the custom PrettyPaginator's static method.
      *
      * @param Closure $resolver
      * @return void

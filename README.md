@@ -1,3 +1,5 @@
+#Trailing slashes
+
 # Laravel Pretty Pagination
 
 This package generates pretty pagination URLs:
@@ -32,7 +34,25 @@ Or if you don't want to use any prefix:
 
 ```php
 Route::get('/users', ...)->name('users')->paginate(null);
+
 ```
+
+#Trailing slashes
+
+If you wan't to add the trailing slash (default is ```false```):
+
+```php
+Route::get('/users', ...)->name('users')->paginate('pages', true);
+```
+
+http://localhost/page/10/
+
+```php
+Route::get('/users', ...)->name('users')->paginate('pages');
+```
+
+http://localhost/page/10
+
 
 ## Notes
 
