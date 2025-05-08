@@ -1,5 +1,3 @@
-#Trailing slashes
-
 # Laravel Pretty Pagination
 
 This package generates pretty pagination URLs:
@@ -45,14 +43,17 @@ If you wan't to add the trailing slash (default is ```false```):
 Route::get('/users', ...)->name('users')->paginate('pages', true);
 ```
 
+```
 http://localhost/page/10/
+```
 
 ```php
 Route::get('/users', ...)->name('users')->paginate('pages');
 ```
 
+```
 http://localhost/page/10
-
+```
 
 ## Notes
 
