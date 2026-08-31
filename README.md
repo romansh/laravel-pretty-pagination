@@ -1,69 +1,107 @@
 # Laravel Pretty Pagination
 
-This package generates pretty pagination URLs:
+Pretty pagination URLs for Laravel routes.
 
-```
-http://localhost/users/page/2
+Instead of query-string URLs such as `/users?page=2`, this package generates
+URLs like `/users/page/2` and registers the matching pagination route for you.
+
+## Requirements
+
+- PHP 7.2 or newer
+- Laravel 6 through 12
+
+## Installation
+
+Install the package with Composer:
+
+```bash
+composer require romansh/laravel-pretty-pagination
 ```
 
-## Install
-
-Install this package via Composer:
-
-```
-composer require ctsoft/laravel-pretty-pagination
-```
+The service provider is registered automatically through Laravel package
+discovery.
 
 ## Usage
 
-To generate pretty URLs simply call the ```paginate()``` macro on your routes:
+Give the route a name and call the `paginate` macro:
 
 ```php
-Route::get('/users', ...)->name('users')->paginate();
+use Illuminate\Support\Facades\Route;
+
+Route::get('/users', [UserController::class, 'index'])
+    ->name('users')
+    ->paginate();
 ```
 
-If you wan't to change the prefix (default is ```page```):
+The route above supports:
+
+```text
+/users
+/users/page/2
+```
+
+In the controller, use Laravel's paginator as usual:
 
 ```php
-Route::get('/users', ...)->name('users')->paginate('seite');
+use App\Models\User;
+
+public function index()
+{
+    return view('users.index', [
+        'users' => User::query()->paginate(15),
+    ]);
+}
 ```
 
-Or if you don't want to use any prefix:
+Pagination links preserve appended query parameters and fragments through the
+normal Laravel paginator API.
+
+## Custom page prefix
+
+Pass a custom prefix as the first argument:
 
 ```php
-Route::get('/users', ...)->name('users')->paginate(null);
-
+Route::get('/users', [UserController::class, 'index'])
+    ->name('users')
+    ->paginate('p');
 ```
 
-#Trailing slashes
+This generates URLs such as `/users/p/2`.
 
-If you wan't to add the trailing slash (default is ```false```):
-
-```php
-Route::get('/users', ...)->name('users')->paginate('pages', true);
-```
-
-```
-http://localhost/page/10/
-```
+To omit the prefix entirely, pass `null`:
 
 ```php
-Route::get('/users', ...)->name('users')->paginate('pages');
+Route::get('/users', [UserController::class, 'index'])
+    ->name('users')
+    ->paginate(null);
 ```
 
+This generates URLs such as `/users/2`.
+
+## Trailing slashes
+
+Pass `true` as the second argument to add a trailing slash to generated
+pagination URLs:
+
+```php
+Route::get('/users', [UserController::class, 'index'])
+    ->name('users')
+    ->paginate('page', true);
 ```
-http://localhost/page/10
-```
+
+The generated URL is `/users/page/2/`. The default is `false`.
 
 ## Notes
 
-- The route must have a name
-- The ```paginate()``` macro must be called as last
-
-## Security
-
-If you discover any security related issues, please email [security@ctsoft.de](mailto:security@ctsoft.de) instead of using the issue tracker.
+- The route must have a name.
+- The `paginate()` macro should be called last in the route definition.
+- The package uses Laravel's standard pagination views and paginator methods.
 
 ## License
 
-This package is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This package is open-sourced software licensed under the [MIT license](LICENSE.md).
+
+## Support
+
+Please report bugs and feature requests through the
+[GitHub issue tracker](https://github.com/romansh/laravel-pretty-pagination/issues).
