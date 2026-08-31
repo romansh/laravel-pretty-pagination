@@ -5,6 +5,14 @@ Pretty pagination URLs for Laravel routes.
 Instead of query-string URLs such as `/users?page=2`, this package generates
 URLs like `/users/page/2` and registers the matching pagination route for you.
 
+## Based on
+
+This package is based on the original
+[`ctsoft/laravel-pretty-pagination`](https://github.com/ctsoft-de/laravel-pretty-pagination)
+package by CTSoft. It keeps the original package's functionality and namespace
+while continuing development under the `romansh/laravel-pretty-pagination`
+package name.
+
 ## Requirements
 
 - PHP 7.2 or newer
