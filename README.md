@@ -16,7 +16,7 @@ package name.
 ## Requirements
 
 - PHP 7.2 or newer
-- Laravel 6 through 12
+- Laravel 6 through 13
 
 ## Installation
 
